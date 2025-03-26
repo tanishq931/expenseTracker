@@ -2,4 +2,7 @@ export const SCREENS = {
   HOME: 'HOMESCREEN',
   LOGIN: 'LOGIN',
   SIGNUP: 'SIGNUP',
+  BUDGET: 'BUDGET',
+  ACCOUNTS: 'ACCOUNTS',
+  CHARTS: 'CHARTS',
 };

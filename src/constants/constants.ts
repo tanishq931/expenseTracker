@@ -1,0 +1,15 @@
+export const TRANSACTION_TYPE = {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE',
+  TRANSFER: 'TRANSFER',
+};
+
+export const REDUX_SLICES_NAME = {
+  TRANSACTION_SLICE: 'TRANSACTION_SLICE',
+  USER_SLICE: 'USER_SLICE',
+};
+
+export const PLATFORM_TYPE = {
+  ANDROID: 'android',
+  IOS: 'ios',
+};

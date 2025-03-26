@@ -1,15 +1,19 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Colors} from '../../theme/color';
+import {PLATFORM_TYPE} from '../../constants/constants';
 
 const styles = StyleSheet.create({
   container: {
     minHeight: 60,
     backgroundColor: Colors.NAVY_BLUE,
-    elevation: 50,
+    elevation: 30,
     shadowColor: Colors.WHITE,
     shadowRadius: 10,
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingTop: Platform.OS === PLATFORM_TYPE.ANDROID ? 10 : 0,
+  },
+  innerContainer: {
+    paddingHorizontal: 20,
   },
   titleText: {
     fontSize: 22,
