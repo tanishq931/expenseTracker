@@ -2,12 +2,18 @@ import {StyleSheet} from 'react-native';
 
 export const TextStyles = StyleSheet.create({
   boldText: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Lato-Bold',
   },
   mediumText: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: 'Lato-Regular',
   },
   lightText: {
-    fontFamily: 'Montserrat-Light',
+    fontFamily: 'Lato-Light',
+  },
+  titleText: {
+    fontFamily: 'Sigmar-Regular',
+  },
+  subTitleText: {
+    fontFamily: 'Combo-Regular',
   },
 });

@@ -4,6 +4,7 @@ export interface USER_DETAILS {
   lastName: string;
   email?: string;
   phoneNo: string;
+  currency: string;
 }
 
 export interface USER_ACCOUNT {

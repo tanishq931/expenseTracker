@@ -4,12 +4,17 @@ export const TRANSACTION_TYPE = {
   TRANSFER: 'TRANSFER',
 };
 
-export const REDUX_SLICES_NAME = {
-  TRANSACTION_SLICE: 'TRANSACTION_SLICE',
-  USER_SLICE: 'USER_SLICE',
-};
-
 export const PLATFORM_TYPE = {
   ANDROID: 'android',
   IOS: 'ios',
+};
+
+export const KEYBOARD_TYPE = {
+  DEFAULT: 'default',
+  NUMBER_PAD: 'number-pad',
+  DECIMAL_PAD: 'decimal-pad',
+  NUMBERIC: 'numeric',
+  EMAIL: 'email-address',
+  PHONE_PAD: 'phone-pad',
+  URL: 'url',
 };

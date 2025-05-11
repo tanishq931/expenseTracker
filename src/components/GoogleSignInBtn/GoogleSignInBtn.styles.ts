@@ -2,17 +2,20 @@ import {StyleSheet} from 'react-native';
 import {Colors} from '../../theme/color';
 
 const styles = StyleSheet.create({
-  container: {
+  googleBtn: {
     flexDirection: 'row',
-    backgroundColor: Colors.BACKGROUND ,
-  },
-  tab: {
-    paddingVertical: 10,
-    flex: 1,
+    marginHorizontal: 40,
+    backgroundColor: Colors.WHITE,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 40,
+    height: 48,
     gap: 8,
-    borderBottomColor: Colors.WHITE,
+  },
+  googleSignInText: {
+    fontSize: 18,
+    lineHeight: 25,
+    color: Colors.BLACK,
   },
 });
 

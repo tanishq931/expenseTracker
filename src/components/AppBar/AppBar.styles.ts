@@ -5,7 +5,7 @@ import {PLATFORM_TYPE} from '../../constants/constants';
 const styles = StyleSheet.create({
   container: {
     minHeight: 60,
-    backgroundColor: Colors.NAVY_BLUE,
+    backgroundColor: Colors.BACKGROUND,
     elevation: 30,
     shadowColor: Colors.WHITE,
     shadowRadius: 10,
@@ -23,6 +23,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     left: 15,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'red',
+  },
+  backBtn: {
+    justifyContent: 'center',
+    position: 'absolute',
+    height: 22,
+    width: 22,
+    paddingTop: 5,
     top: 0,
     bottom: 0,
   },

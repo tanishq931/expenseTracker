@@ -1,9 +1,14 @@
 export const Colors = {
+  BACKGROUND: '#1b263b',
+  BLACK: '#000000',
+  BLUE: '#4285F4',
+  GREEN: '#00FF00',
   GREY: '#777673',
+  LIGHT_BLUE: '#00b4d8',
   LIGHT_GREY: '#778da9',
-  WHITE: '#ffffff',
-  NAVY_BLUE: '#1b263b',
+  LIGHT_GREEN: '#8DEEA7',
   MODERATE_BLUE: '#415a77',
-  LIGHT_BLUE:"#00b4d8",
-  BLACK:"#000000"
+  RED: '#FF8F8F',
+  TRANSPARENT: 'transparent',
+  WHITE: '#ffffff',
 };

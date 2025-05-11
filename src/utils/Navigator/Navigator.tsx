@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import React, {ReactNode} from 'react';
+import React from 'react';
 import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import {SCREENS} from '../../constants/screenNames';
 import {NavigationContainer} from '@react-navigation/native';
@@ -14,6 +14,9 @@ import styles from './Navigator.styles';
 import Budget from '../../screens/Budget/Budget';
 import Accounts from '../../screens/Accounts/Accounts';
 import Charts from '../../screens/Charts/Charts';
+import NewTransaction from '../../screens/NewTransaction/NewTransaction';
+import Login from '../../screens/Login/Login';
+import SignUp from '../../screens/SignUp/SignUp';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -26,7 +29,8 @@ const BottomTabNavigator = () => {
         tabBarStyle: styles.tabBar,
         tabBarItemStyle: styles.tabBarItem,
         tabBarLabelStyle: [styles.tabBarLabel, TextStyles.mediumText],
-      }}>
+      }}
+      initialRouteName={SCREENS.HOME}>
       <BottomTab.Screen
         name={SCREENS.HOME}
         component={HomeScreen}
@@ -39,7 +43,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name={SCREENS.LOGIN}
+        name={SCREENS.BUDGET}
         component={Budget}
         options={{
           tabBarLabel: 'Budget',
@@ -79,6 +83,12 @@ function Navigator(): React.JSX.Element {
         initialRouteName={SCREENS.HOME}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={SCREENS.HOME} component={BottomTabNavigator} />
+        <Stack.Screen name={SCREENS.LOGIN} component={Login} />
+        <Stack.Screen name={SCREENS.SIGNUP} component={SignUp} />
+        <Stack.Screen
+          name={SCREENS.NEW_TRANSACTION}
+          component={NewTransaction}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

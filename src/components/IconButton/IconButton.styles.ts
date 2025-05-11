@@ -3,17 +3,16 @@ import {Colors} from '../../theme/color';
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: Colors.BACKGROUND ,
-  },
-  tab: {
-    paddingVertical: 10,
     flex: 1,
+    height: 42,
+    borderWidth: 1,
+    borderRadius: 8,
+    gap: 4,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
-    borderBottomColor: Colors.WHITE,
   },
+  btnTitle: {fontSize: 14},
 });
 
 export default styles;

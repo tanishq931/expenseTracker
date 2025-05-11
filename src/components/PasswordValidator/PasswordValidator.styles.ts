@@ -1,18 +1,26 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from '../../theme/color';
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: Colors.BACKGROUND ,
+    gap: 12,
   },
-  tab: {
-    paddingVertical: 10,
-    flex: 1,
+  checkRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  iconContainer: {
+    height: 14,
+    width: 14,
+    borderWidth: 1,
+    borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
-    borderBottomColor: Colors.WHITE,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  rowText: {
+    fontSize: 12,
   },
 });
 

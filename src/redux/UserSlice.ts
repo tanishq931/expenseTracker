@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {USER_ACCOUNT, USER_DETAILS} from '../constants/types/UserDetails';
-import {REDUX_SLICES_NAME} from '../constants/constants';
 import {fetchAuthToken} from './UserActions';
+import {REDUX_SLICES_NAME} from './sliceNames';
 
 const initialState: {
   userDetails: USER_DETAILS | null;
@@ -9,7 +9,13 @@ const initialState: {
   categories: Array<{id: string; name: string; icon: string}>;
   authToken?: string | null;
 } = {
-  userDetails: null,
+  userDetails: {
+    currency: 'RS',
+    userId: '',
+    firstName: '',
+    lastName: '',
+    phoneNo: '',
+  },
   userAccounts: [],
   categories: [],
 };

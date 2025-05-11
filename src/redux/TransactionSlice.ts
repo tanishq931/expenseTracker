@@ -1,8 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {
-  TRANSACTION,
-} from '../constants/types/Transaction';
-import {REDUX_SLICES_NAME, TRANSACTION_TYPE} from '../constants/constants';
+import {TRANSACTION} from '../constants/types/Transaction';
+import {TRANSACTION_TYPE} from '../constants/constants';
+import {REDUX_SLICES_NAME} from './sliceNames';
 
 const initialState: {
   userTransactions: Array<TRANSACTION>;
@@ -16,7 +15,7 @@ const initialState: {
   totalTransfersAmount: 0,
 };
 
-export const transactionSlice = createSlice({
+const transactionSlice = createSlice({
   name: REDUX_SLICES_NAME.TRANSACTION_SLICE,
   initialState,
   reducers: {
