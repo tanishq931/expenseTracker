@@ -10,6 +10,7 @@ import {SCREENS} from '../../constants/screenNames';
 import TransactionRow from '../../components/TransactionRow/TransactionRow';
 import {TRANSACTION} from '../../constants/types/Transaction';
 import {TRANSACTION_TYPE} from '../../constants/constants';
+import {handleExit} from '../../utils/ExitHandler/ExitHandler';
 
 function HomeScreen() {
   const navigate = useNavigation();
@@ -35,6 +36,9 @@ function HomeScreen() {
       transactionType: TRANSACTION_TYPE.EXPENSE,
     },
   ];
+
+  handleExit();
+
   return (
     <BaseLayout>
       <View style={styles.container}>
@@ -55,6 +59,7 @@ function HomeScreen() {
         {transactionData.map((val, index) => {
           return (
             <TransactionRow
+              key={index}
               data={val}
               isExpanded={index === selectedIndex}
               isFirst={index === 0}
@@ -71,7 +76,7 @@ function HomeScreen() {
         })}
         <TouchableOpacity
           style={styles.floatingBtn}
-          onPress={() => navigate.navigate(SCREENS.SIGNUP)}>
+          onPress={() => navigate.navigate(SCREENS.NEW_TRANSACTION)}>
           <AddIcon />
         </TouchableOpacity>
       </View>

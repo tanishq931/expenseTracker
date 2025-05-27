@@ -1,19 +1,30 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MMKV} from 'react-native-mmkv';
 
 export class LocalStorage {
-  static asyncStorage = AsyncStorage;
+  static storage = new MMKV({
+    id: 'localStorage',
+    encryptionKey: 'localStorage',
+  });
 
-  static async getItem(key: string) {
-    return await this.asyncStorage.getItem(key);
+  static getString(key: string) {
+    return this.storage.getString(key);
   }
-  static async setItem(key: string, value: any) {
-    await this.asyncStorage.setItem(key, JSON.stringify(value));
+  static getNumber(key: string) {
+    return this.storage.getNumber(key);
   }
-  static async removeItem(key: string) {
-    await this.asyncStorage.removeItem(key);
+  static getBool(key: string) {
+    return this.storage.getBoolean(key);
   }
-  static async removeAll() {
-    const keys = await this.asyncStorage.getAllKeys();
-    await this.asyncStorage.multiRemove(keys);
+  static setItem(key: string, value: any) {
+    this.storage.set(key, JSON.stringify(value));
+  }
+  static removeItem(key: string) {
+    this.storage.delete(key);
+  }
+  static removeAll() {
+    this.storage.clearAll();
+  }
+  static contains() {
+    return this.storage.contains('key');
   }
 }

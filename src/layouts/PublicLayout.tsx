@@ -14,7 +14,7 @@ function PublicLayout({
 }): React.JSX.Element {
   const authToken: string | undefined | null = useSelector(
     (state: RootState) => {
-      return state?.authState?.authToken;
+      return state?.userProfile?.authToken;
     },
   );
   const navigate = useNavigation();

@@ -4,15 +4,15 @@ import Svg, {Path, Circle} from 'react-native-svg';
 function EyeOpenIcon(props) {
   return (
     <Svg
-      width="800px"
-      height="800px"
+      width={24}
+      height={24}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}>
       <Path
         d="M1 12s4-8 11-8 11 8 11 8M1 12s4 8 11 8 11-8 11-8"
-        stroke="#000"
+        stroke={props?.stroke || '#fff'}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -21,7 +21,7 @@ function EyeOpenIcon(props) {
         cx={12}
         cy={12}
         r={3}
-        stroke="#000"
+        stroke={props?.stroke || '#fff'}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"

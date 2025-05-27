@@ -18,3 +18,7 @@ export const KEYBOARD_TYPE = {
   PHONE_PAD: 'phone-pad',
   URL: 'url',
 };
+
+export const STORAGE_KEYS = {
+  AUTH_TOKEN: 'authToken',
+};

@@ -25,11 +25,15 @@ function PasswordInput({
       error={error}
       hideText={passHidden}
       isRequired
-      onBlur={() => {}}
+      onBlur={onBlur}
       onChange={onChange}
       suffix={
         <TouchableOpacity onPress={() => setPassHidden(!passHidden)}>
-          {passHidden ? <EyeOpenIcon /> : <EyeClosedIcon />}
+          {passHidden ? (
+            <EyeOpenIcon height={20} width={24} />
+          ) : (
+            <EyeClosedIcon />
+          )}
         </TouchableOpacity>
       }
       title={title}

@@ -30,9 +30,9 @@ const BottomTabNavigator = () => {
         tabBarItemStyle: styles.tabBarItem,
         tabBarLabelStyle: [styles.tabBarLabel, TextStyles.mediumText],
       }}
-      initialRouteName={SCREENS.HOME}>
+      initialRouteName={SCREENS.DASHBOARD}>
       <BottomTab.Screen
-        name={SCREENS.HOME}
+        name={SCREENS.DASHBOARD}
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
@@ -80,7 +80,7 @@ function Navigator(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={SCREENS.HOME}
+        initialRouteName={SCREENS.LOGIN}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={SCREENS.HOME} component={BottomTabNavigator} />
         <Stack.Screen name={SCREENS.LOGIN} component={Login} />

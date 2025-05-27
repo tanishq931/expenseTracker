@@ -1,22 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import Navigator from './utils/Navigator/Navigator';
-import {Platform, StatusBar} from 'react-native';
+import {Platform} from 'react-native';
 import {Colors} from './theme/color';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import {Provider} from 'react-redux';
-import {store} from './redux/store';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from './redux/store';
+import {fetchAuthToken} from './redux/UserActions';
+import {KeyboardProvider} from 'react-native-keyboard-controller';
 
 function App(): React.JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAuthToken());
+  }, []);
+
   return (
-    <Provider store={store}>
-      <StatusBar barStyle="light-content" backgroundColor={Colors.BACKGROUND} />
+    <>
       <SafeAreaView style={{flex: 1, backgroundColor: Colors.BACKGROUND}}>
-        <Navigator></Navigator>
+        <KeyboardProvider
+          navigationBarTranslucent={true}
+          statusBarTranslucent={true}
+          preserveEdgeToEdge={true}>
+          <Navigator></Navigator>
+        </KeyboardProvider>
       </SafeAreaView>
       <Toast position="top" topOffset={Platform.OS === 'ios' ? 60 : 20} />
-    </Provider>
+    </>
   );
 }
 

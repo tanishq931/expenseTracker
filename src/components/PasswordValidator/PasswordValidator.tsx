@@ -4,6 +4,12 @@ import styles from './PasswordValidator.styles';
 import {TextStyles} from '../../theme/textstyles';
 import {Colors} from '../../theme/color';
 import CheckIcon from '../../../assets/icons/CheckIcon';
+import {
+  stringWithOneLowercase,
+  stringWithOneNum,
+  stringWithOneSpecialChar,
+  stringWithOneUppercase,
+} from '../../utils/Regex/Regex';
 
 interface PASS_CHECK_TYPE {
   title: string;
@@ -13,24 +19,24 @@ interface PASS_CHECK_TYPE {
 function PasswordValidator({password}: {password: string}) {
   const checksData: Array<PASS_CHECK_TYPE> = [
     {
-      title: 'Password should be of 6 to 16 xharacters long',
+      title: 'Password should be of 6 to 16 characters long',
       isFulfilled: password.length >= 6 && password.length <= 16,
     },
     {
       title: 'Password must contain 1 Number',
-      isFulfilled: false,
+      isFulfilled: stringWithOneNum.test(password),
     },
     {
-      title: 'Password must contain 1 Special Character',
-      isFulfilled: false,
+      title: 'Password must contain 1 Special Character (@!#$&)',
+      isFulfilled: stringWithOneSpecialChar.test(password),
     },
     {
       title: 'Password must contain 1 Uppercase Alphabet',
-      isFulfilled: false,
+      isFulfilled: stringWithOneUppercase.test(password),
     },
     {
       title: 'Password must contain 1 Lowercase Alphabet',
-      isFulfilled: false,
+      isFulfilled: stringWithOneLowercase.test(password),
     },
   ];
 

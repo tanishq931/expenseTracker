@@ -10,19 +10,23 @@ function LoginFooter({isFromLogin = true}: {isFromLogin?: boolean}) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.registerContainer}>
-        <Text style={styles.dontText}>
-          {isFromLogin ? "Don't have any account?" : 'Already have an account?'}
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(isFromLogin ? SCREENS.SIGNUP : SCREENS.LOGIN);
-          }}>
-          <Text style={styles.registerText}>
-            {isFromLogin ? 'Register' : 'Login'}
+      {isFromLogin && (
+        <View style={styles.registerContainer}>
+          <Text style={styles.dontText}>
+            {isFromLogin
+              ? "Don't have any account?"
+              : 'Already have an account?'}
           </Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(SCREENS.SIGNUP);
+            }}>
+            <Text style={styles.registerText}>
+              {isFromLogin ? 'Register' : 'Login'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <View style={styles.dividerContainer}>
         <View style={styles.divider} />
         <Text style={styles.dividerText}>Or</Text>

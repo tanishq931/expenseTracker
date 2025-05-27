@@ -77,6 +77,7 @@ export const {
   addCategory,
   removeAccount,
   removeCategory,
+  setAuthToken,
 } = userSlice.actions;
 
 export default userSlice.reducer;

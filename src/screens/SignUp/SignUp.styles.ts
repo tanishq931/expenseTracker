@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../theme/color';
 const styles = StyleSheet.create({
+  scrollView: {flexGrow: 1},
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -23,10 +24,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   loginBtn: {
-    // height:48,
     marginTop: 20,
     alignSelf: 'center',
     width: 200,
+  },
+  backBtn: {
+    height: 40,
+    width: 40,
+    left: -10,
   },
 });
 

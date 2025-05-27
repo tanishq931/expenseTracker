@@ -35,7 +35,12 @@ function TextField({
   return (
     <View style={styles.container}>
       {!!title && (
-        <Text style={[styles.titleText, TextStyles.mediumText]}>
+        <Text
+          style={[
+            styles.titleText,
+            TextStyles.mediumText,
+            {opacity: editable ? 1 : 0.5},
+          ]}>
           {title} {isRequired && <Text style={styles.isRequiredText}>*</Text>}
         </Text>
       )}
@@ -44,13 +49,21 @@ function TextField({
           value={value}
           onChangeText={onChange}
           selectionColor={Colors.WHITE}
-          style={[styles.inputStyles, isSuffix ? styles.inputWithSuffix : {}]}
+          style={[
+            styles.inputStyles,
+            isSuffix ? styles.inputWithSuffix : {},
+            {opacity: editable ? 1 : 0.5},
+          ]}
           onBlur={onBlur}
           keyboardType={keyboardType}
           secureTextEntry={hideText}
           editable={editable}
         />
-        {isSuffix && <View style={styles.suffixContainer}>{suffix}</View>}
+        {isSuffix && (
+          <View style={[styles.suffixContainer, {opacity: editable ? 1 : 0.5}]}>
+            {suffix}
+          </View>
+        )}
       </View>
       {!!error && (
         <Text style={[styles.errorText, TextStyles.mediumText]}>{error}</Text>

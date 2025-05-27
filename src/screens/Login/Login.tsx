@@ -9,12 +9,16 @@ import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import LoginFooter from '../../components/LoginFooter/LoginFooter';
 import AppTitle from '../../components/AppTitle/AppTitle';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-controller';
+import {handleExit} from '../../utils/ExitHandler/ExitHandler';
+import {emailRegex} from '../../utils/Regex/Regex';
 
 interface LoginData {
   email: string;
   password: string;
   emailError?: string;
   passwordError?: string;
+  emailTouched?: boolean;
 }
 
 function Login(): React.JSX.Element {
@@ -25,11 +29,27 @@ function Login(): React.JSX.Element {
 
   //State Updation
   const onChangeEmail = (val: string) => {
+    let error = checkEmail(val, true);
     setFormData({
       ...formData,
       email: val,
+      emailError: formData?.emailTouched ? error : '',
     });
   };
+  function checkEmail(val: string, isCheckOnly?: boolean) {
+    let error = '';
+    if (!emailRegex.test(val.trim()) && !!val) {
+      error = 'Invalid email';
+    }
+    if (isCheckOnly) {
+      return error;
+    }
+    setFormData({
+      ...formData,
+      emailError: error,
+      emailTouched: true,
+    });
+  }
 
   const onChangePassword = (val: string) => {
     setFormData({
@@ -38,35 +58,43 @@ function Login(): React.JSX.Element {
     });
   };
 
+  handleExit();
+
   return (
     <PublicLayout>
-      <View style={styles.container}>
-        <AppTitle />
-        <Text style={[styles.loginText, TextStyles.boldText]}>Login</Text>
-        <View style={styles.loginForm}>
-          <TextField
-            error={formData?.emailError}
-            isRequired
-            onBlur={e => {}}
-            onChange={onChangeEmail}
-            keyboardType={KEYBOARD_TYPE.EMAIL}
-            title="Enter email"
-            value={formData?.email}
-          />
-          <PasswordInput
-            error={formData?.passwordError}
-            onBlur={() => {}}
-            onChange={onChangePassword}
-            title="Enter Password"
-            value={formData?.password}
-          />
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        bottomOffset={40}>
+        <View style={styles.container}>
+          <AppTitle />
+          <Text style={[styles.loginText, TextStyles.boldText]}>Login</Text>
+          <View style={styles.loginForm}>
+            <TextField
+              error={formData?.emailError}
+              isRequired
+              onBlur={() => checkEmail(formData?.email)}
+              onChange={onChangeEmail}
+              keyboardType={KEYBOARD_TYPE.EMAIL}
+              title="Enter email"
+              value={formData?.email}
+            />
+            <PasswordInput
+              error={formData?.passwordError}
+              onBlur={() => {}}
+              onChange={onChangePassword}
+              title="Enter Password"
+              value={formData?.password}
+            />
+          </View>
+          <Text style={styles.forgotPassText}>Forgot Password?</Text>
+          <View style={styles.loginBtn}>
+            <ButtonComponent title="Login" onPress={() => {}} />
+          </View>
+          <LoginFooter />
         </View>
-        <Text style={styles.forgotPassText}>Forgot Password?</Text>
-        <View style={styles.loginBtn}>
-          <ButtonComponent title="Login" onPress={() => {}} />
-        </View>
-        <LoginFooter />
-      </View>
+      </KeyboardAwareScrollView>
     </PublicLayout>
   );
 }

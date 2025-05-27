@@ -7,13 +7,16 @@ import styles from './GoogleSignInBtn.styles';
 import {useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {setAuthToken} from '../../redux/AuthSlice';
+import {setAuthToken} from '../../redux/UserSlice';
+import {LocalStorage} from '../../services/StorageService';
+import {STORAGE_KEYS} from '../../constants/constants';
+import Config from 'react-native-config';
+import {showSnackbar} from '../../utils/Snackbar/showSnackbar';
 
 function GoogleSignInBtn() {
   const dispatch = useDispatch();
   GoogleSignin.configure({
-    webClientId:
-      '430418871088-f5mevtpkav01igrv0raf4p775b3fj4ub.apps.googleusercontent.com',
+    webClientId: Config.WEB_CLIENT_ID,
     offlineAccess: false,
   });
 
@@ -30,8 +33,12 @@ function GoogleSignInBtn() {
         );
         const token = await userCredential.user.getIdToken();
         dispatch(setAuthToken(token));
+        LocalStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
+        showSnackbar('Signed in successfully', '');
       }
-    } catch (error) {}
+    } catch (error) {
+      showSnackbar('Something went wrong', 'Try Again');
+    }
   };
 
   return (
