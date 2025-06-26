@@ -4,11 +4,7 @@ import {
   USER_ACCOUNT,
   USER_DETAILS,
 } from '../constants/types/UserDetails';
-import {
-  fetchAuthToken,
-  fetchCustomAccounts,
-  fetchCustomCategories,
-} from './UserActions';
+import {fetchCustomAccounts, fetchCustomCategories} from './UserActions';
 import {REDUX_SLICES_NAME} from './sliceNames';
 import {DEFAULT_ACCOUNTS, DEFAULT_CATEGORIES} from '../constants/constants';
 
@@ -16,7 +12,6 @@ const initialState: {
   userDetails: USER_DETAILS | null;
   userAccounts: Array<USER_ACCOUNT>;
   categories: Array<CATEGORY>;
-  authToken?: string | null;
 } = {
   userDetails: {
     currency: 'Rs.',
@@ -68,14 +63,8 @@ const userSlice = createSlice({
       if (!!removedCategory) {
       }
     },
-    setAuthToken: (state, action) => {
-      state.authToken = action.payload;
-    },
   },
   extraReducers: builder => {
-    builder.addCase(fetchAuthToken.fulfilled, (state, action) => {
-      state.authToken = action.payload;
-    });
     builder.addCase(fetchCustomCategories.fulfilled, (state, action) => {
       if (action?.payload?.length > 0) {
         state.categories = [...state?.categories, ...action?.payload];
@@ -96,7 +85,6 @@ export const {
   addCategory,
   removeAccount,
   removeCategory,
-  setAuthToken,
 } = userSlice.actions;
 
 export default userSlice.reducer;

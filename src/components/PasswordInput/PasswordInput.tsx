@@ -19,7 +19,7 @@ function PasswordInput({
   title: string;
   value: string;
 }) {
-  const [passHidden, setPassHidden] = useState<boolean>(false);
+  const [passHidden, setPassHidden] = useState<boolean>(true);
   return (
     <TextField
       error={error}
