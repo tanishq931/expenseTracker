@@ -9,13 +9,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
-    height: 60,
-    width: 60,
+    height: 55,
+    width: 55,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: Colors.WHITE,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  topSpacer: {
+    height: 20,
+    // backgroundColor: Colors.BACKGROUND,
   },
 });
 

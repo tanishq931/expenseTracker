@@ -7,21 +7,23 @@ import {Colors} from '../../theme/color';
 import {useNavigation} from '@react-navigation/native';
 
 function AppBar({
-  title,
-  centerTitle = false,
-  titleStyle,
   bottomComponent,
-  leading,
+  centerTitle = false,
   gap = 4,
   isBackBtnEnabled = true,
+  leading,
+  onBackPress,
+  title,
+  titleStyle,
 }: {
+  bottomComponent?: React.JSX.Element;
+  centerTitle?: boolean;
+  gap?: number;
+  leading?: React.JSX.Element;
+  isBackBtnEnabled?: boolean;
+  onBackPress?: () => void;
   title: string;
   titleStyle?: TextStyle;
-  centerTitle?: boolean;
-  bottomComponent?: React.JSX.Element;
-  leading?: React.JSX.Element;
-  gap?: number;
-  isBackBtnEnabled?: boolean;
 }): React.JSX.Element {
   const navigation = useNavigation();
 
@@ -31,7 +33,12 @@ function AppBar({
         {isBackBtnEnabled && (
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => navigation.goBack()}>
+            onPress={() => {
+              if (!!onBackPress) {
+                onBackPress();
+              }
+              navigation.goBack();
+            }}>
             <BackArrowIcon stroke={Colors.WHITE} height={38} width={38} />
           </TouchableOpacity>
         )}

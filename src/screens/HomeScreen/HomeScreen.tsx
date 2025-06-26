@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {FlatList, TouchableOpacity, View} from 'react-native';
 import styles from './HomeScreen.styles';
 import AppBar from '../../components/AppBar/AppBar';
@@ -8,34 +8,44 @@ import AddIcon from '../../../assets/icons/AddIcon';
 import {useNavigation} from '@react-navigation/native';
 import {SCREENS} from '../../constants/screenNames';
 import TransactionRow from '../../components/TransactionRow/TransactionRow';
-import {TRANSACTION} from '../../constants/types/Transaction';
 import {TRANSACTION_TYPE} from '../../constants/constants';
-import {handleExit} from '../../utils/ExitHandler/ExitHandler';
+import {handleExit} from '../../utils/BackHandlers/ExitHandler';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
 
 function HomeScreen() {
   const navigate = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const transactionData: Array<TRANSACTION> = [
-    {
-      title: 'Food',
-      description: 'Food @Sector-30',
-      amount: 100,
-      createdAt: new Date(),
-      id: '12312',
-      category: 'Food',
-      transactionType: TRANSACTION_TYPE.EXPENSE,
-    },
-    {
-      title: 'Food',
-      description: 'Food @Sector-30',
-      amount: 100,
-      createdAt: new Date(),
-      id: '1232',
-      category: 'Food',
-      transactionType: TRANSACTION_TYPE.EXPENSE,
-    },
-  ];
+  const transactions = useSelector(
+    (state: RootState) => state?.transactions?.userTransactions,
+  );
+
+  const filteredTransaction = transactions.filter(item => {
+    return (
+      item?.transactionType === TRANSACTION_TYPE.EXPENSE ||
+      item?.transactionType === TRANSACTION_TYPE.INCOME
+    );
+  });
+
+  const renderItem = ({item, index}) => {
+    return (
+      <TransactionRow
+        key={index}
+        data={item}
+        isExpanded={index === selectedIndex}
+        isFirst={index === 0}
+        isLast={index === filteredTransaction.length - 1}
+        onPress={() => {
+          if (selectedIndex === index) {
+            setSelectedIndex(-1);
+          } else {
+            setSelectedIndex(index);
+          }
+        }}
+      />
+    );
+  };
 
   handleExit();
 
@@ -55,25 +65,8 @@ function HomeScreen() {
           }
           isBackBtnEnabled={false}
         />
-        <View style={{height: 20}}></View>
-        {transactionData.map((val, index) => {
-          return (
-            <TransactionRow
-              key={index}
-              data={val}
-              isExpanded={index === selectedIndex}
-              isFirst={index === 0}
-              isLast={index === transactionData.length - 1}
-              onPress={() => {
-                if (selectedIndex === index) {
-                  setSelectedIndex(-1);
-                } else {
-                  setSelectedIndex(index);
-                }
-              }}
-            />
-          );
-        })}
+        <View style={styles.topSpacer}></View>
+        <FlatList data={transactions} renderItem={renderItem} />
         <TouchableOpacity
           style={styles.floatingBtn}
           onPress={() => navigate.navigate(SCREENS.NEW_TRANSACTION)}>

@@ -9,3 +9,19 @@ export const fetchAuthToken = createAsyncThunk(
     return response;
   },
 );
+
+export const fetchCustomCategories = createAsyncThunk(
+  'userSlice/fetchCustomCategories',
+  async () => {
+    let response = LocalStorage.getString(STORAGE_KEYS.CUSTOM_CATEGORIES);
+    return JSON.parse(response!);
+  },
+);
+
+export const fetchCustomAccounts = createAsyncThunk(
+  'userSlice/fetchCustomAccounts',
+  async () => {
+    let response = LocalStorage.getString(STORAGE_KEYS.CUSTOM_ACCOUNTS);
+    return JSON.parse(response!);
+  },
+);

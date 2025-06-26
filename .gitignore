@@ -81,3 +81,4 @@ package-lock.json
 
 #custom files
 google-services.json
+GoogleService-Info.plist

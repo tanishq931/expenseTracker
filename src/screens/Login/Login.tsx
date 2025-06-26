@@ -10,7 +10,7 @@ import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import LoginFooter from '../../components/LoginFooter/LoginFooter';
 import AppTitle from '../../components/AppTitle/AppTitle';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-controller';
-import {handleExit} from '../../utils/ExitHandler/ExitHandler';
+import {handleExit} from '../../utils/BackHandlers/ExitHandler';
 import {emailRegex} from '../../utils/Regex/Regex';
 
 interface LoginData {
