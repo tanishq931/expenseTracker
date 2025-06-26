@@ -8,8 +8,11 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import Config from 'react-native-config';
 import {showSnackbar} from '../../utils/Snackbar/showSnackbar';
+import {useDispatch} from 'react-redux';
+import {toggleUserAuthentication} from '../../redux/UserSlice';
 
 function GoogleSignInBtn() {
+  const dispatch = useDispatch();
   GoogleSignin.configure({
     webClientId: Config.WEB_CLIENT_ID,
     offlineAccess: false,
@@ -27,6 +30,7 @@ function GoogleSignInBtn() {
         );
         const token = await userCredential.user.getIdToken();
         showSnackbar('Signed in successfully', '');
+        dispatch(toggleUserAuthentication(true));
       }
     } catch (error) {
       showSnackbar('Something went wrong', 'Try Again');

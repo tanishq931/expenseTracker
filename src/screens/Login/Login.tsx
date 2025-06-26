@@ -14,6 +14,8 @@ import {handleExit} from '../../utils/BackHandlers/ExitHandler';
 import {emailRegex, passRegex} from '../../utils/Regex/Regex';
 import {getAuth, signInWithEmailAndPassword} from '@react-native-firebase/auth';
 import {showSnackbar} from '../../utils/Snackbar/showSnackbar';
+import {useDispatch} from 'react-redux';
+import {toggleUserAuthentication} from '../../redux/UserSlice';
 
 interface LoginData {
   email: string;
@@ -25,6 +27,7 @@ interface LoginData {
 
 function Login(): React.JSX.Element {
   const auth = getAuth();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState<LoginData>({
     email: '',
     password: '',
@@ -76,14 +79,13 @@ function Login(): React.JSX.Element {
   const onLogin = async () => {
     if (checkPass()) {
       try {
-        let response = await signInWithEmailAndPassword(
+        await signInWithEmailAndPassword(
           auth,
           formData?.email?.trim(),
           formData?.password?.trim(),
         );
-        console.log(response);
-
         showSnackbar('Login Success', '');
+        dispatch(toggleUserAuthentication(true));
       } catch (e: any) {
         let msg = `${e}`;
         if (msg.includes('auth/invalid-credential')) {

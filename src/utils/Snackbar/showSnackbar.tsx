@@ -10,7 +10,7 @@ export const showSnackbar = (
     text: message,
     duration: Snackbar.LENGTH_SHORT,
     action: {
-      text: btnText || 'Try again',
+      text: btnText || '',
       textColor: Colors.WHITE,
       onPress: onPressBtn,
     },

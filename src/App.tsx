@@ -11,8 +11,11 @@ import {KeyboardProvider} from 'react-native-keyboard-controller';
 import CustomBottomSheet from './components/BottomSheet/BottomSheet';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import {getTransactions} from './redux/TransactionSlice';
+import {getAuth} from '@react-native-firebase/auth';
+import {toggleUserAuthentication} from './redux/UserSlice';
 
 function App(): React.JSX.Element {
+  const auth = getAuth();
   const dispatch: AppDispatch = useDispatch();
   const BottomSheetData = useSelector((state: RootState) => state.utilsSlice);
   const {bottomSheetVisible, bottomSheetType} = BottomSheetData;
@@ -20,6 +23,8 @@ function App(): React.JSX.Element {
   useEffect(() => {
     dispatch(getTransactions());
     changeNavigationBarColor(Colors.BACKGROUND);
+    const isAuthenticated = !!auth.currentUser;
+    dispatch(toggleUserAuthentication(isAuthenticated));
   }, []);
 
   return (

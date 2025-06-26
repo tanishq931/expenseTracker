@@ -4,16 +4,19 @@ import {Colors} from '../theme/color';
 import {useNavigation} from '@react-navigation/native';
 import {SCREENS} from '../constants/screenNames';
 import {pushReplacement} from '../utils/Navigator/PushReplacement';
-import {getAuth} from '@react-native-firebase/auth';
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux/store';
 
 function PublicLayout({
   children,
 }: {
   children: React.JSX.Element;
 }): React.JSX.Element {
-  const auth = getAuth();
   const navigate = useNavigation();
-  if (!!auth.currentUser) {
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.userProfile.isAuthenticated,
+  );
+  if (isAuthenticated) {
     pushReplacement(navigate, SCREENS.HOME);
   }
   return <View style={styles.container}>{children}</View>;

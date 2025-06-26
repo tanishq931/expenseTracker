@@ -1,8 +1,7 @@
 import React, {ReactNode} from 'react';
-import {Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 
 import styles from './TextField.styles';
-import {Colors} from '../../theme/color';
 import {TextStyles} from '../../theme/textstyles';
 import {KEYBOARD_TYPE} from '../../constants/constants';
 
@@ -57,6 +56,7 @@ function TextField({
           </View>
         )}
         <TextInput
+          autoCapitalize='none'
           editable={editable}
           keyboardType={keyboardType}
           maxLength={maxLength}
