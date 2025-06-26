@@ -40,11 +40,11 @@ function PasswordValidator({password}: {password: string}) {
     },
   ];
 
-  const renderItem = (val: PASS_CHECK_TYPE) => {
+  const renderItem = (val: PASS_CHECK_TYPE, index: number) => {
     const {isFulfilled, title} = val;
 
     return (
-      <View style={styles.checkRow}>
+      <View style={styles.checkRow} key={index}>
         <View
           style={[
             styles.iconContainer,

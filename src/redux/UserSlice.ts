@@ -1,13 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {USER_ACCOUNT, USER_DETAILS} from '../constants/types/UserDetails';
-import {fetchAuthToken} from './UserActions';
 import {REDUX_SLICES_NAME} from './sliceNames';
 
 const initialState: {
   userDetails: USER_DETAILS | null;
   userAccounts: Array<USER_ACCOUNT>;
   categories: Array<{id: string; name: string; icon: string}>;
-  authToken?: string | null;
+  // authToken?: string | null;
 } = {
   userDetails: {
     currency: 'RS',
@@ -59,14 +58,6 @@ const userSlice = createSlice({
       if (!!removedCategory) {
       }
     },
-    setAuthToken: (state, action) => {
-      state.authToken = action.payload;
-    },
-  },
-  extraReducers: builder => {
-    builder.addCase(fetchAuthToken.fulfilled, (state, action) => {
-      state.authToken = action.payload;
-    });
   },
 });
 
@@ -77,7 +68,6 @@ export const {
   addCategory,
   removeAccount,
   removeCategory,
-  setAuthToken,
 } = userSlice.actions;
 
 export default userSlice.reducer;

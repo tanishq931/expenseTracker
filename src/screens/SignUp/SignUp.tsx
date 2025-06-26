@@ -15,6 +15,12 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-controller';
 import PublicLayout from '../../layouts/PublicLayout';
 import BackArrowIcon from '../../../assets/icons/BackArrow';
 import {useNavigation} from '@react-navigation/native';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+} from '@react-native-firebase/auth';
+import {showSnackbar} from '../../utils/Snackbar/showSnackbar';
+import {SCREENS} from '../../constants/screenNames';
 
 interface LoginData {
   email: string;
@@ -28,6 +34,7 @@ interface LoginData {
 }
 
 function SignUp() {
+  const auth = getAuth();
   const navigate = useNavigation();
 
   const [formData, setFormData] = useState<LoginData>({
@@ -69,7 +76,7 @@ function SignUp() {
     }
     setFormData({
       ...formData,
-      password: val,
+      password: val?.trim(),
       passwordError: error,
     });
   };
@@ -78,7 +85,7 @@ function SignUp() {
     let error = checkConfirmPass(val, true);
     setFormData({
       ...formData,
-      confirmPassword: val,
+      confirmPassword: val?.trim(),
       confirmPassError: formData?.confirmPasstouched ? error : '',
     });
   };
@@ -97,6 +104,29 @@ function SignUp() {
       confirmPasstouched: true,
     });
   }
+
+  const onSignUp = async () => {
+    try {
+      await createUserWithEmailAndPassword(
+        auth,
+        formData?.email?.trim(),
+        formData?.password?.trim(),
+      );
+      showSnackbar('SignUp Success, Please Login', '');
+    } catch (e: any) {
+      let msg = `${e}`;
+      if (msg.includes('auth/email-already-in-use')) {
+        console.log('in if ');
+        msg = 'User already exists';
+        showSnackbar(msg, 'Login', () => navigate.navigate(SCREENS.LOGIN));
+      } else {
+        console.log('in else');
+
+        msg = 'Try after Sometime';
+        showSnackbar(msg);
+      }
+    }
+  };
 
   const isSignUpDisabled =
     !formData?.email ||
@@ -155,7 +185,7 @@ function SignUp() {
           <View style={styles.loginBtn}>
             <ButtonComponent
               title="Register"
-              onPress={() => {}}
+              onPress={onSignUp}
               disabled={isSignUpDisabled}
             />
           </View>

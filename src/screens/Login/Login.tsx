@@ -11,7 +11,9 @@ import LoginFooter from '../../components/LoginFooter/LoginFooter';
 import AppTitle from '../../components/AppTitle/AppTitle';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-controller';
 import {handleExit} from '../../utils/ExitHandler/ExitHandler';
-import {emailRegex} from '../../utils/Regex/Regex';
+import {emailRegex, passRegex} from '../../utils/Regex/Regex';
+import {getAuth, signInWithEmailAndPassword} from '@react-native-firebase/auth';
+import {showSnackbar} from '../../utils/Snackbar/showSnackbar';
 
 interface LoginData {
   email: string;
@@ -22,6 +24,7 @@ interface LoginData {
 }
 
 function Login(): React.JSX.Element {
+  const auth = getAuth();
   const [formData, setFormData] = useState<LoginData>({
     email: '',
     password: '',
@@ -54,9 +57,51 @@ function Login(): React.JSX.Element {
   const onChangePassword = (val: string) => {
     setFormData({
       ...formData,
-      password: val,
+      password: val?.trim(),
     });
   };
+
+  const checkPass = () => {
+    const isInvalid = !passRegex.test(formData?.password);
+    const newError = isInvalid ? 'Invalid Password' : '';
+    if (formData.passwordError !== newError) {
+      setFormData({
+        ...formData,
+        passwordError: newError,
+      });
+    }
+    return !isInvalid;
+  };
+
+  const onLogin = async () => {
+    if (checkPass()) {
+      try {
+        let response = await signInWithEmailAndPassword(
+          auth,
+          formData?.email?.trim(),
+          formData?.password?.trim(),
+        );
+        console.log(response);
+
+        showSnackbar('Login Success', '');
+      } catch (e: any) {
+        let msg = `${e}`;
+        if (msg.includes('auth/invalid-credential')) {
+          msg = 'Invalid Credentials';
+        } else {
+          msg = 'Try after Sometime';
+        }
+        showSnackbar(msg);
+      }
+    }
+  };
+
+  const isLoginBtnDisabled =
+    !formData?.email ||
+    !!formData?.emailError ||
+    !formData?.password ||
+    formData?.password?.length < 6;
+  !!formData?.passwordError;
 
   handleExit();
 
@@ -82,7 +127,7 @@ function Login(): React.JSX.Element {
             />
             <PasswordInput
               error={formData?.passwordError}
-              onBlur={() => {}}
+              onBlur={() => checkPass()}
               onChange={onChangePassword}
               title="Enter Password"
               value={formData?.password}
@@ -90,7 +135,11 @@ function Login(): React.JSX.Element {
           </View>
           <Text style={styles.forgotPassText}>Forgot Password?</Text>
           <View style={styles.loginBtn}>
-            <ButtonComponent title="Login" onPress={() => {}} />
+            <ButtonComponent
+              title="Login"
+              onPress={onLogin}
+              disabled={isLoginBtnDisabled}
+            />
           </View>
           <LoginFooter />
         </View>
