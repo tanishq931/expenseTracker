@@ -6,7 +6,7 @@ const initialState: {
   userDetails: USER_DETAILS | null;
   userAccounts: Array<USER_ACCOUNT>;
   categories: Array<{id: string; name: string; icon: string}>;
-  // authToken?: string | null;
+  isAuthenticated?: boolean;
 } = {
   userDetails: {
     currency: 'RS',
@@ -17,12 +17,16 @@ const initialState: {
   },
   userAccounts: [],
   categories: [],
+  isAuthenticated: false,
 };
 
 const userSlice = createSlice({
   name: REDUX_SLICES_NAME.USER_SLICE,
   initialState,
   reducers: {
+    toggleUserAuthentication: (state, action) => {
+      state.isAuthenticated = action.payload;
+    },
     setUserData: (state, action) => {
       state = action.payload;
     },
@@ -62,6 +66,7 @@ const userSlice = createSlice({
 });
 
 export const {
+  toggleUserAuthentication,
   setUserData,
   setUserDetails,
   addAccount,

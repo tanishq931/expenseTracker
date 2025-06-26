@@ -58,6 +58,7 @@ function TextField({
           keyboardType={keyboardType}
           secureTextEntry={hideText}
           editable={editable}
+          autoCapitalize='none'
         />
         {isSuffix && (
           <View style={[styles.suffixContainer, {opacity: editable ? 1 : 0.5}]}>

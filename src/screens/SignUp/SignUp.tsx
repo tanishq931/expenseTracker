@@ -123,7 +123,7 @@ function SignUp() {
         console.log('in else');
 
         msg = 'Try after Sometime';
-        showSnackbar(msg);
+        showSnackbar(msg,'');
       }
     }
   };
