@@ -37,6 +37,8 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to your photo library</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need access to save photos to your library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Combo-Regular.ttf</string>

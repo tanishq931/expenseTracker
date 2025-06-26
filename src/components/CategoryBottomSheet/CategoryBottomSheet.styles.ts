@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconText: {
-    fontSize: 14,
+    fontSize: 12,
     textAlign: 'center',
   },
   iconContainer: {
