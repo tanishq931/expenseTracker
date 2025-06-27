@@ -38,7 +38,6 @@ import ImagePicker from '../../components/ImagePicker/ImagePicker';
 import {TRANSACTION} from '../../constants/types/Transaction';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {formatString} from '../../utils/Helpers/formatString';
-
 interface TRANSACTION_DATA {
   accountDebitedFrom: string;
   amount: number | string;

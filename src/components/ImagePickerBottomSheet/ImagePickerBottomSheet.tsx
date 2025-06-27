@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Platform, Text, TouchableOpacity, View} from 'react-native';
 import styles from './ImagePickerBottomSheet.styles';
 import {BottomSheetView} from '@gorhom/bottom-sheet';
 import GalleryIcon from '../../../assets/icons/GalleryIcon';
@@ -10,7 +10,7 @@ import {setPickedImageUrl} from '../../redux/TransactionSlice';
 import {showSnackbar} from '../../utils/Snackbar/showSnackbar';
 import ImagePicker from 'react-native-image-crop-picker';
 import {PLATFORM_TYPE} from '../../constants/constants';
-import {PERMISSIONS, request} from 'react-native-permissions';
+import {openSettings, PERMISSIONS, request} from 'react-native-permissions';
 import {Colors} from '../../theme/color';
 
 function ImagePickerBottomSheet() {
@@ -38,6 +38,24 @@ function ImagePickerBottomSheet() {
     }
     if (response === 'granted') {
       openCamera();
+    } else if (response === 'blocked') {
+      Alert.alert(
+        'Camera Permission Blocked',
+        'Please enable camera permission in settings to use this feature.',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Settings',
+            onPress: () => {
+              // Open app settings to enable camera permission
+              openSettings();
+            },
+          },
+        ],
+      );
     }
   };
 
@@ -55,6 +73,24 @@ function ImagePickerBottomSheet() {
     }
     if (response === 'granted') {
       openGallery();
+    } else if (response === 'blocked') {
+      Alert.alert(
+        'Camera Permission Blocked',
+        'Please enable camera permission in settings to use this feature.',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Settings',
+            onPress: () => {
+              // Open app settings to enable camera permission
+              openSettings();
+            },
+          },
+        ],
+      );
     }
   };
 
