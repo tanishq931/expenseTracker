@@ -17,6 +17,7 @@ import Charts from '../../screens/Charts/Charts';
 import NewTransaction from '../../screens/NewTransaction/NewTransaction';
 import Login from '../../screens/Login/Login';
 import SignUp from '../../screens/SignUp/SignUp';
+import SplashScreen from '../../screens/Splash/SplashScreen';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -80,8 +81,9 @@ function Navigator(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={SCREENS.LOGIN}
+        initialRouteName={SCREENS.SPLASH}
         screenOptions={{headerShown: false}}>
+        <Stack.Screen name={SCREENS.SPLASH} component={SplashScreen} />
         <Stack.Screen name={SCREENS.HOME} component={BottomTabNavigator} />
         <Stack.Screen name={SCREENS.LOGIN} component={Login} />
         <Stack.Screen name={SCREENS.SIGNUP} component={SignUp} />

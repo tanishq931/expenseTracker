@@ -87,7 +87,7 @@ PODS:
     - hermes-engine/Pre-built (= 0.78.0)
   - hermes-engine/Pre-built (0.78.0)
   - lottie-ios (4.5.0)
-  - lottie-react-native (7.2.2):
+  - lottie-react-native (7.2.3):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2413,7 +2413,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
   hermes-engine: b417d2b2aee3b89b58e63e23a51e02be91dc876d
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
-  lottie-react-native: 57ffc63285c1e5dcad6743dca0d3e1ed34cac598
+  lottie-react-native: 15d77abcfeb4706ddf2aab1f9727365d13b4b5f0
   RCT-Folly: 36fe2295e44b10d831836cc0d1daec5f8abcf809
   RCTDeprecation: b2eecf2d60216df56bc5e6be5f063826d3c1ee35
   RCTRequired: 78522de7dc73b81f3ed7890d145fa341f5bb32ea
