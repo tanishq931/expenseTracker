@@ -1761,7 +1761,7 @@ PODS:
     - React-perflogger (= 0.78.0)
     - React-utils (= 0.78.0)
   - RecaptchaInterop (101.0.0)
-  - RNDateTimePicker (8.4.2):
+  - RNDateTimePicker (8.4.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2477,7 +2477,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 299e99fc57c93edc7c5396ef1a39a3a4d494f25d
   ReactCommon: c8fdbc582b98a07daf201cd95c1da75dd029f3ee
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
-  RNDateTimePicker: c328c7e3632e9602867ed321759e925c45d915c5
+  RNDateTimePicker: 7482875a23ea5983fbec290d8322b8d2b0044111
   RNFBApp: 4110e3d5c109de1f81454247e5d0f83ee9408c8c
   RNFBAuth: 5d780985a4ecfd1ccee8700c083f0ef8eb2325ee
   RNGestureHandler: 6bd728f386096ebb26670b4dd6a604a67b14f65d

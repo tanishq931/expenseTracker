@@ -28,10 +28,12 @@ function HomeScreen() {
     (state: RootState) => state?.transactions?.userTransactions,
   );
 
-  const formattedTransactions = formatTransactions(transactions, [
-    TRANSACTION_TYPE.EXPENSE,
-    TRANSACTION_TYPE.INCOME,
-  ]);
+  const formattedTransactions = formatTransactions(
+    transactions,
+    activeTab === 0
+      ? [TRANSACTION_TYPE.EXPENSE, TRANSACTION_TYPE.INCOME]
+      : TRANSACTION_TYPE.TRANSFER,
+  );
 
   const renderItem = ({
     item,
@@ -63,6 +65,8 @@ function HomeScreen() {
     );
   };
 
+  console.log('formattedTransactions', formattedTransactions.length);
+
   handleExit();
 
   return (
@@ -93,6 +97,7 @@ function HomeScreen() {
         />
         <View style={styles.topSpacer}></View>
         <SectionList
+          contentContainerStyle={styles.listContainer}
           sections={formattedTransactions}
           renderItem={renderItem}
           renderSectionHeader={({section: {title}}) => {
@@ -115,6 +120,13 @@ function HomeScreen() {
               </TouchableOpacity>
             );
           }}
+          ListEmptyComponent={
+            <View style={styles.emptyListContainer}>
+              <Text style={styles.emptyText}>
+                Have Money! why not spend it?
+              </Text>
+            </View>
+          }
         />
         <TouchableOpacity
           style={styles.floatingBtn}
