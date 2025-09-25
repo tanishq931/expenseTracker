@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     left: 15,
     top: 0,
     bottom: 0,
-    backgroundColor: 'red',
   },
   backBtn: {
     justifyContent: 'center',

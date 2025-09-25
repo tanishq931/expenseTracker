@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TextStyle, TouchableOpacity, View} from 'react-native';
+import {Text, TextStyle, TouchableOpacity, View, ViewStyle} from 'react-native';
 import styles from './AppBar.styles';
 import {TextStyles} from '../../theme/textstyles';
 import BackArrowIcon from '../../../assets/icons/BackArrow';
@@ -15,6 +15,7 @@ function AppBar({
   onBackPress,
   title,
   titleStyle,
+  topContainerStyle,
 }: {
   bottomComponent?: React.JSX.Element;
   centerTitle?: boolean;
@@ -24,12 +25,13 @@ function AppBar({
   onBackPress?: () => void;
   title: string;
   titleStyle?: TextStyle;
+  topContainerStyle?: ViewStyle;
 }): React.JSX.Element {
   const navigation = useNavigation();
 
   return (
     <View style={[styles.container, {gap: gap}]}>
-      <View style={styles.innerContainer}>
+      <View style={[styles.innerContainer, topContainerStyle]}>
         {isBackBtnEnabled && (
           <TouchableOpacity
             style={styles.backBtn}
@@ -42,7 +44,6 @@ function AppBar({
             <BackArrowIcon stroke={Colors.WHITE} height={38} width={38} />
           </TouchableOpacity>
         )}
-        {!!leading && <View style={styles.leadingView}>{leading}</View>}
         <Text
           style={[
             styles.titleText,
@@ -50,11 +51,16 @@ function AppBar({
             titleStyle,
             {
               textAlign: centerTitle ? 'center' : 'left',
-              marginLeft: leading ? 30 : isBackBtnEnabled ? 20 : 0,
+              marginLeft: centerTitle
+                ? 0
+                : leading || isBackBtnEnabled
+                ? 20
+                : 0,
             },
           ]}>
           {title}
         </Text>
+        {!!leading && <View style={styles.leadingView}>{leading}</View>}
       </View>
       {bottomComponent}
     </View>

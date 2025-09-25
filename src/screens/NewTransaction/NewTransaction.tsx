@@ -16,7 +16,6 @@ import {
 import {numberWithTwoDecimal} from '../../utils/Regex/Regex';
 import {getFormattedDateTime} from '../../utils/DateTimeFormat/DateFormatter';
 import CalendarIcon from '../../../assets/icons/CalendarIcon';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {
   getValidDate,
   isValidDate,
@@ -38,6 +37,8 @@ import ImagePicker from '../../components/ImagePicker/ImagePicker';
 import {TRANSACTION} from '../../constants/types/Transaction';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {formatString} from '../../utils/Helpers/formatString';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+
 interface TRANSACTION_DATA {
   accountDebitedFrom: string;
   amount: number | string;
@@ -112,14 +113,12 @@ function NewTransaction() {
       });
   };
 
-  const onChangeDateTime = (event: any, selectedDate: Date | undefined) => {
+  const onChangeDateTime = (selectedDate: Date | undefined) => {
     setShowDatePicker(false);
-    if (event.type !== 'dismissed') {
-      setFormData({
-        ...formData,
-        createdAt: selectedDate,
-      });
-    }
+    setFormData({
+      ...formData,
+      createdAt: selectedDate,
+    });
   };
 
   const onChangeDateInput = (val: string | Date, isFromBlur?: boolean) => {
@@ -258,15 +257,16 @@ function NewTransaction() {
             disabled={isSubmitBtnDisabled}
           />
         </View>
-        {showDatePicker && (
-          <RNDateTimePicker
-            value={new Date(formData?.createdAt!)}
-            mode="date"
-            display="calendar"
-            onChange={onChangeDateTime}
-            maximumDate={new Date()}
-          />
-        )}
+        <DateTimePicker
+          isVisible={showDatePicker}
+          date={new Date(formData?.createdAt!)}
+          mode="date"
+          onConfirm={onChangeDateTime}
+          onCancel={() => {
+            setShowDatePicker(false);
+          }}
+          maximumDate={new Date()}
+        />
       </>
     </BaseLayout>
   );

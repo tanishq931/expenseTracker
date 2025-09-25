@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Colors} from '../theme/color';
 import {pushReplacement} from '../utils/Navigator/PushReplacement';
@@ -16,9 +16,13 @@ function BaseLayout({
     (state: RootState) => state.userProfile.isAuthenticated,
   );
   const navigate = useNavigation();
-  if (!isAuthenticated) {
-    pushReplacement(navigate, SCREENS.LOGIN);
-  }
+  
+  useEffect(() => {
+    if (!isAuthenticated) {
+      pushReplacement(navigate, SCREENS.LOGIN);
+    }
+  }, [isAuthenticated]);
+
   return <View style={styles.container}>{children}</View>;
 }
 

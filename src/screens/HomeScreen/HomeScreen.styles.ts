@@ -18,9 +18,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   topSpacer: {
-    height: 20,
-    // backgroundColor: Colors.BACKGROUND,
+    height: 10,
   },
+  sectionHeader: {
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+    gap: 8,
+    justifyContent: 'space-between',
+  },
+  userProfile: {
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 40,
+    borderColor: Colors.WHITE,
+  },
+  header: {height: 45, justifyContent: 'center'},
 });
 
 export default styles;

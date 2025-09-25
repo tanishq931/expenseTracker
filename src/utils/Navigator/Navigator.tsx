@@ -18,9 +18,12 @@ import NewTransaction from '../../screens/NewTransaction/NewTransaction';
 import Login from '../../screens/Login/Login';
 import SignUp from '../../screens/SignUp/SignUp';
 import SplashScreen from '../../screens/Splash/SplashScreen';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const BottomTabNavigator = () => {
   return (
@@ -77,6 +80,25 @@ const BottomTabNavigator = () => {
   );
 };
 
+const HomeDrawer = () => {
+  return (
+    <Drawer.Navigator
+      initialRouteName={SCREENS.HOME_DRAWER}
+      drawerContent={CustomDrawer}
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: {
+          width: '80%',
+        },
+      }}>
+      <Drawer.Screen
+        name={SCREENS.HOME_DRAWER}
+        component={BottomTabNavigator}
+      />
+    </Drawer.Navigator>
+  );
+};
+
 function Navigator(): React.JSX.Element {
   return (
     <NavigationContainer>
@@ -84,7 +106,7 @@ function Navigator(): React.JSX.Element {
         initialRouteName={SCREENS.SPLASH}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={SCREENS.SPLASH} component={SplashScreen} />
-        <Stack.Screen name={SCREENS.HOME} component={BottomTabNavigator} />
+        <Stack.Screen name={SCREENS.HOME} component={HomeDrawer} />
         <Stack.Screen name={SCREENS.LOGIN} component={Login} />
         <Stack.Screen name={SCREENS.SIGNUP} component={SignUp} />
         <Stack.Screen

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Colors} from '../theme/color';
 import {useNavigation} from '@react-navigation/native';
@@ -16,9 +16,12 @@ function PublicLayout({
   const isAuthenticated = useSelector(
     (state: RootState) => state.userProfile.isAuthenticated,
   );
-  if (isAuthenticated) {
-    pushReplacement(navigate, SCREENS.HOME);
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      pushReplacement(navigate, SCREENS.HOME);
+    }
+  }, [isAuthenticated]);
+
   return <View style={styles.container}>{children}</View>;
 }
 

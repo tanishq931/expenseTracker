@@ -24,7 +24,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import * as Animatable from 'react-native-animateable';
 
 function TransactionRow({
   isFirst = false,
