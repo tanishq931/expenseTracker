@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../theme/color';
+import {TextStyles} from '../../theme/textstyles';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +21,9 @@ const styles = StyleSheet.create({
   topSpacer: {
     height: 10,
   },
+  listContainer: {
+    flexGrow: 1,
+  },
   sectionHeader: {
     flexDirection: 'row',
     paddingHorizontal: 15,
@@ -36,6 +40,18 @@ const styles = StyleSheet.create({
     borderColor: Colors.WHITE,
   },
   header: {height: 45, justifyContent: 'center'},
+  emptyListContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 12,
+  },
+  emptyText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#90e0ef',
+    ...TextStyles.lightText,
+  },
 });
 
 export default styles;

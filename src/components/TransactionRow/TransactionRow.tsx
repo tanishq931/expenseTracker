@@ -42,7 +42,7 @@ function TransactionRow({
   const {openSheet} = useBottomSheet();
   const navigate = useNavigation();
   const animatedHeight = useSharedValue(74);
-  const animatedOpatcity = useSharedValue(0);
+  const animatedOpacity = useSharedValue(0);
 
   const currency = useSelector(
     (state: RootState) => state?.userProfile?.userDetails?.currency,
@@ -91,7 +91,7 @@ function TransactionRow({
 
   const animatedBottomStyle = useAnimatedStyle(() => {
     return {
-      opacity: withTiming(animatedOpatcity.value, {duration: 300}),
+      opacity: withTiming(animatedOpacity.value, {duration: 300}),
     };
   });
 
@@ -128,7 +128,9 @@ function TransactionRow({
 
   const containerStyle = useAnimatedStyle(() => {
     return {
-      height: withTiming(animatedHeight.value, {duration: 200}),
+      height: withTiming(animatedHeight.value, {
+        duration: data?.billPath ? 300 : 200,
+      }),
     };
   });
 
@@ -163,7 +165,7 @@ function TransactionRow({
         onPress={() => {
           onPress();
           animatedHeight.value = isExpanded ? 74 : !data?.billPath ? 116 : 328;
-          animatedOpatcity.value = isExpanded ? 0 : 1;
+          animatedOpacity.value = isExpanded ? 0 : 1;
         }}>
         {renderUpperRow()}
         {isExpanded && expandedRow()}
