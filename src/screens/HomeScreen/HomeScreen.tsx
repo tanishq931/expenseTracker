@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import {
-  SectionList,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {SectionList, Text, TouchableOpacity, View} from 'react-native';
 import styles from './HomeScreen.styles';
 import AppBar from '../../components/AppBar/AppBar';
 import BaseLayout from '../../layouts/BaseLayout';
@@ -18,54 +13,45 @@ import {handleExit} from '../../utils/BackHandlers/ExitHandler';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
 import {TRANSACTION} from '../../constants/types/Transaction';
-import moment from 'moment';
 import DownArrowIcon from '../../../assets/icons/DownArrowIcon';
 import UserProfileIcon from '../../../assets/icons/UserProfileIcon';
 import {Colors} from '../../theme/color';
+import {formatTransactions} from '../../utils/Formatter/FormatTransactions';
+import UpArrowIcon from '../../../assets/icons/UpArrowIcon';
 
 function HomeScreen() {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [collapsedSections, setCollapsedSections] = useState<Array<string>>([]);
   const transactions = useSelector(
     (state: RootState) => state?.transactions?.userTransactions,
   );
 
-  const filteredTransaction = transactions.filter(item => {
-    return (
-      item?.transactionType === TRANSACTION_TYPE.EXPENSE ||
-      item?.transactionType === TRANSACTION_TYPE.INCOME
-    );
-  });
+  const formattedTransactions = formatTransactions(transactions, [
+    TRANSACTION_TYPE.EXPENSE,
+    TRANSACTION_TYPE.INCOME,
+  ]);
 
-  const groupTransactions = () => {
-    const groups: any = {};
-
-    filteredTransaction.forEach(tx => {
-      const monthYear = moment(tx.createdAt).format('MMM YYYY').toString(); // e.g. FEB 2025
-      if (!groups[monthYear]) {
-        groups[monthYear] = [];
-      }
-      groups[monthYear].push(tx);
-    });
-
-    // Convert object → array for SectionList
-    return Object.keys(groups).map(month => ({
-      title: month,
-      data: groups[month],
-    }));
-  };
-
-  const groupedTransactions = groupTransactions();
-
-  const renderItem = ({item, index}: {item: TRANSACTION; index: number}) => {
+  const renderItem = ({
+    item,
+    index,
+    section,
+  }: {
+    item: TRANSACTION;
+    index: number;
+    section: {title: string; data: TRANSACTION[]};
+  }) => {
+    if (collapsedSections.includes(section.title)) {
+      return <View style={styles.topSpacer}></View>;
+    }
     return (
       <TransactionRow
         key={index}
         data={item}
         isExpanded={index === selectedIndex}
         isFirst={index === 0}
-        isLast={index === filteredTransaction.length - 1}
+        isLast={index === section.data.length - 1}
         onPress={() => {
           if (selectedIndex === index) {
             setSelectedIndex(-1);
@@ -107,13 +93,24 @@ function HomeScreen() {
         />
         <View style={styles.topSpacer}></View>
         <SectionList
-          sections={groupedTransactions}
+          sections={formattedTransactions}
           renderItem={renderItem}
           renderSectionHeader={({section: {title}}) => {
+            const isCollapsed = collapsedSections.includes(title);
             return (
-              <TouchableOpacity style={styles.sectionHeader}>
+              <TouchableOpacity
+                style={styles.sectionHeader}
+                onPress={() => {
+                  if (isCollapsed) {
+                    setCollapsedSections(prev => {
+                      return prev.filter(item => item !== title);
+                    });
+                  } else {
+                    setCollapsedSections(prev => [...prev, title]);
+                  }
+                }}>
                 <Text style={{fontSize: 14, color: 'white'}}>{title}</Text>
-                <DownArrowIcon />
+                {isCollapsed ? <DownArrowIcon /> : <UpArrowIcon />}
               </TouchableOpacity>
             );
           }}
