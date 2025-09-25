@@ -22,7 +22,7 @@ import UpArrowIcon from '../../../assets/icons/UpArrowIcon';
 function HomeScreen() {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedTx, setSelectedTx] = useState<string>('');
   const [collapsedSections, setCollapsedSections] = useState<Array<string>>([]);
   const transactions = useSelector(
     (state: RootState) => state?.transactions?.userTransactions,
@@ -49,14 +49,14 @@ function HomeScreen() {
       <TransactionRow
         key={index}
         data={item}
-        isExpanded={index === selectedIndex}
+        isExpanded={item?.id === selectedTx}
         isFirst={index === 0}
         isLast={index === section.data.length - 1}
         onPress={() => {
-          if (selectedIndex === index) {
-            setSelectedIndex(-1);
+          if (selectedTx === item?.id) {
+            setSelectedTx('');
           } else {
-            setSelectedIndex(index);
+            setSelectedTx(item?.id);
           }
         }}
       />
@@ -105,6 +105,7 @@ function HomeScreen() {
                     setCollapsedSections(prev => {
                       return prev.filter(item => item !== title);
                     });
+                    setSelectedTx('');
                   } else {
                     setCollapsedSections(prev => [...prev, title]);
                   }
