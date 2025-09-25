@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     width: '100%',
     flexDirection: 'row',
-    height: 48,
+    height: 40,
   },
   inputStyles: {
     flex: 1,
@@ -26,12 +26,17 @@ const styles = StyleSheet.create({
     borderColor: Colors.WHITE,
     color: Colors.WHITE,
     paddingLeft: 10,
-    borderRadius: 6,
+    borderRadius: 8,
+    fontSize: 12,
   },
   inputWithSuffix: {
     borderRightWidth: 0,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
+  },
+  inputWithPrefix: {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
   },
   errorText: {
     fontSize: 12,
@@ -42,8 +47,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.WHITE,
     borderLeftWidth: 0,
-    borderTopRightRadius: 6,
-    borderBottomRightRadius: 6,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  prefixContainer: {
+    paddingHorizontal: 8,
+    borderWidth: 1,
+    borderColor: Colors.WHITE,
+    borderRightWidth: 0,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },

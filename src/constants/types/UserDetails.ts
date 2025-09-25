@@ -10,7 +10,12 @@ export interface USER_DETAILS {
 export interface USER_ACCOUNT {
   id: string;
   name: string;
-  icon?: string;
-  remainingbalance: number;
+  icon: string;
+  currentBalance: number;
   startingBalance: number;
+}
+
+export interface CATEGORY {
+  id: string;
+  name: string;
 }

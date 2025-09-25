@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {SectionList, Text, TouchableOpacity, View} from 'react-native';
 import styles from './HomeScreen.styles';
 import AppBar from '../../components/AppBar/AppBar';
 import BaseLayout from '../../layouts/BaseLayout';
@@ -8,34 +8,60 @@ import AddIcon from '../../../assets/icons/AddIcon';
 import {useNavigation} from '@react-navigation/native';
 import {SCREENS} from '../../constants/screenNames';
 import TransactionRow from '../../components/TransactionRow/TransactionRow';
-import {TRANSACTION} from '../../constants/types/Transaction';
 import {TRANSACTION_TYPE} from '../../constants/constants';
-import {handleExit} from '../../utils/ExitHandler/ExitHandler';
+import {handleExit} from '../../utils/BackHandlers/ExitHandler';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
+import {TRANSACTION} from '../../constants/types/Transaction';
+import DownArrowIcon from '../../../assets/icons/DownArrowIcon';
+import UserProfileIcon from '../../../assets/icons/UserProfileIcon';
+import {Colors} from '../../theme/color';
+import {formatTransactions} from '../../utils/Formatter/FormatTransactions';
+import UpArrowIcon from '../../../assets/icons/UpArrowIcon';
 
 function HomeScreen() {
-  const navigate = useNavigation();
+  const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const transactionData: Array<TRANSACTION> = [
-    {
-      title: 'Food',
-      description: 'Food @Sector-30',
-      amount: 100,
-      createdAt: new Date(),
-      id: '12312',
-      category: 'Food',
-      transactionType: TRANSACTION_TYPE.EXPENSE,
-    },
-    {
-      title: 'Food',
-      description: 'Food @Sector-30',
-      amount: 100,
-      createdAt: new Date(),
-      id: '1232',
-      category: 'Food',
-      transactionType: TRANSACTION_TYPE.EXPENSE,
-    },
-  ];
+  const [collapsedSections, setCollapsedSections] = useState<Array<string>>([]);
+  const transactions = useSelector(
+    (state: RootState) => state?.transactions?.userTransactions,
+  );
+
+  const formattedTransactions = formatTransactions(transactions, [
+    TRANSACTION_TYPE.EXPENSE,
+    TRANSACTION_TYPE.INCOME,
+  ]);
+
+  const renderItem = ({
+    item,
+    index,
+    section,
+  }: {
+    item: TRANSACTION;
+    index: number;
+    section: {title: string; data: TRANSACTION[]};
+  }) => {
+    if (collapsedSections.includes(section.title)) {
+      return <View style={styles.topSpacer}></View>;
+    }
+    return (
+      <TransactionRow
+        key={index}
+        data={item}
+        isExpanded={index === selectedIndex}
+        isFirst={index === 0}
+        isLast={index === section.data.length - 1}
+        onPress={() => {
+          if (selectedIndex === index) {
+            setSelectedIndex(-1);
+          } else {
+            setSelectedIndex(index);
+          }
+        }}
+      />
+    );
+  };
 
   handleExit();
 
@@ -53,30 +79,45 @@ function HomeScreen() {
               activeIndex={activeTab}
             />
           }
-          isBackBtnEnabled={false}
-        />
-        <View style={{height: 20}}></View>
-        {transactionData.map((val, index) => {
-          return (
-            <TransactionRow
-              key={index}
-              data={val}
-              isExpanded={index === selectedIndex}
-              isFirst={index === 0}
-              isLast={index === transactionData.length - 1}
+          leading={
+            <TouchableOpacity
+              style={styles.userProfile}
               onPress={() => {
-                if (selectedIndex === index) {
-                  setSelectedIndex(-1);
-                } else {
-                  setSelectedIndex(index);
-                }
-              }}
-            />
-          );
-        })}
+                navigation.openDrawer?.();
+              }}>
+              <UserProfileIcon stroke={Colors.WHITE} height={20} width={20} />
+            </TouchableOpacity>
+          }
+          isBackBtnEnabled={false}
+          topContainerStyle={styles.header}
+        />
+        <View style={styles.topSpacer}></View>
+        <SectionList
+          sections={formattedTransactions}
+          renderItem={renderItem}
+          renderSectionHeader={({section: {title}}) => {
+            const isCollapsed = collapsedSections.includes(title);
+            return (
+              <TouchableOpacity
+                style={styles.sectionHeader}
+                onPress={() => {
+                  if (isCollapsed) {
+                    setCollapsedSections(prev => {
+                      return prev.filter(item => item !== title);
+                    });
+                  } else {
+                    setCollapsedSections(prev => [...prev, title]);
+                  }
+                }}>
+                <Text style={{fontSize: 14, color: 'white'}}>{title}</Text>
+                {isCollapsed ? <DownArrowIcon /> : <UpArrowIcon />}
+              </TouchableOpacity>
+            );
+          }}
+        />
         <TouchableOpacity
           style={styles.floatingBtn}
-          onPress={() => navigate.navigate(SCREENS.NEW_TRANSACTION)}>
+          onPress={() => navigation.navigate(SCREENS.NEW_TRANSACTION)}>
           <AddIcon />
         </TouchableOpacity>
       </View>

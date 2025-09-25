@@ -2,11 +2,10 @@ export interface TRANSACTION {
   accountDebitedFrom?: string;
   accountCreditedTo?: string;
   amount: number;
-  billId?: string;
+  billPath?: string;
   category: string;
-  createdAt: Date;
-  description?: string;
+  createdAt: string;
+  description: string;
   id: string;
-  title: string;
   transactionType: string;
 }

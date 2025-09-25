@@ -1,29 +1,38 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {USER_ACCOUNT, USER_DETAILS} from '../constants/types/UserDetails';
-import {fetchAuthToken} from './UserActions';
+import {
+  CATEGORY,
+  USER_ACCOUNT,
+  USER_DETAILS,
+} from '../constants/types/UserDetails';
+import {fetchCustomAccounts, fetchCustomCategories} from './UserActions';
 import {REDUX_SLICES_NAME} from './sliceNames';
+import {DEFAULT_ACCOUNTS, DEFAULT_CATEGORIES} from '../constants/constants';
 
 const initialState: {
   userDetails: USER_DETAILS | null;
   userAccounts: Array<USER_ACCOUNT>;
-  categories: Array<{id: string; name: string; icon: string}>;
-  authToken?: string | null;
+  categories: Array<CATEGORY>;
+  isAuthenticated?: boolean;
 } = {
   userDetails: {
-    currency: 'RS',
+    currency: 'Rs.',
     userId: '',
     firstName: '',
     lastName: '',
     phoneNo: '',
   },
-  userAccounts: [],
-  categories: [],
+  userAccounts: DEFAULT_ACCOUNTS,
+  categories: DEFAULT_CATEGORIES,
+  isAuthenticated: false,
 };
 
 const userSlice = createSlice({
   name: REDUX_SLICES_NAME.USER_SLICE,
   initialState,
   reducers: {
+    toggleUserAuthentication: (state, action) => {
+      state.isAuthenticated = action.payload;
+    },
     setUserData: (state, action) => {
       state = action.payload;
     },
@@ -59,25 +68,29 @@ const userSlice = createSlice({
       if (!!removedCategory) {
       }
     },
-    setAuthToken: (state, action) => {
-      state.authToken = action.payload;
-    },
   },
   extraReducers: builder => {
-    builder.addCase(fetchAuthToken.fulfilled, (state, action) => {
-      state.authToken = action.payload;
+    builder.addCase(fetchCustomCategories.fulfilled, (state, action) => {
+      if (action?.payload?.length > 0) {
+        state.categories = [...state?.categories, ...action?.payload];
+      }
+    });
+    builder.addCase(fetchCustomAccounts.fulfilled, (state, action) => {
+      if (action?.payload?.length > 0) {
+        state.userAccounts = [...state?.userAccounts, ...action?.payload];
+      }
     });
   },
 });
 
 export const {
+  toggleUserAuthentication,
   setUserData,
   setUserDetails,
   addAccount,
   addCategory,
   removeAccount,
   removeCategory,
-  setAuthToken,
 } = userSlice.actions;
 
 export default userSlice.reducer;

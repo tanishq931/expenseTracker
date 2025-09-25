@@ -7,3 +7,4 @@ export const stringWithOneUppercase: RegExp = /.*[A-Z].*/;
 export const stringWithOneLowercase: RegExp = /.*[a-z].*/;
 export const passRegex: RegExp =
   /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@!#$&])[^\s]{6,16}$/;
+export const numberWithTwoDecimal: RegExp = /^\d*\.?\d{0,2}$/;

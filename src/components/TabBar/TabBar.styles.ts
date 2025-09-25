@@ -4,7 +4,7 @@ import {Colors} from '../../theme/color';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: Colors.BACKGROUND ,
+    backgroundColor: Colors.BACKGROUND,
   },
   tab: {
     paddingVertical: 10,

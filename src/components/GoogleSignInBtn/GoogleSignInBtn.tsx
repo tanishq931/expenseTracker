@@ -4,14 +4,12 @@ import {Text, TouchableOpacity} from 'react-native';
 import GoogleIcon from '../../../assets/icons/GoogleIcon';
 import {TextStyles} from '../../theme/textstyles';
 import styles from './GoogleSignInBtn.styles';
-import {useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {setAuthToken} from '../../redux/UserSlice';
-import {LocalStorage} from '../../services/StorageService';
-import {STORAGE_KEYS} from '../../constants/constants';
 import Config from 'react-native-config';
 import {showSnackbar} from '../../utils/Snackbar/showSnackbar';
+import {useDispatch} from 'react-redux';
+import {toggleUserAuthentication} from '../../redux/UserSlice';
 
 function GoogleSignInBtn() {
   const dispatch = useDispatch();
@@ -27,14 +25,12 @@ function GoogleSignInBtn() {
       const idToken = response.data?.idToken;
       if (idToken) {
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
         const userCredential = await auth().signInWithCredential(
           googleCredential,
         );
         const token = await userCredential.user.getIdToken();
-        dispatch(setAuthToken(token));
-        LocalStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
         showSnackbar('Signed in successfully', '');
+        dispatch(toggleUserAuthentication(true));
       }
     } catch (error) {
       showSnackbar('Something went wrong', 'Try Again');
