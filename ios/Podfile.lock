@@ -1761,6 +1761,27 @@ PODS:
     - React-perflogger (= 0.78.0)
     - React-utils (= 0.78.0)
   - RecaptchaInterop (101.0.0)
+  - RNBootSplash (6.3.11):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNDateTimePicker (8.4.5):
     - DoubleConversion
     - glog
@@ -2193,6 +2214,7 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RecaptchaInterop
+  - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
@@ -2367,6 +2389,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNBootSplash:
+    :path: "../node_modules/react-native-bootsplash"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFBApp:
@@ -2477,6 +2501,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 299e99fc57c93edc7c5396ef1a39a3a4d494f25d
   ReactCommon: c8fdbc582b98a07daf201cd95c1da75dd029f3ee
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
+  RNBootSplash: ae779399418589fbb323804d6c4ed401517a6f40
   RNDateTimePicker: 7482875a23ea5983fbec290d8322b8d2b0044111
   RNFBApp: 4110e3d5c109de1f81454247e5d0f83ee9408c8c
   RNFBAuth: 5d780985a4ecfd1ccee8700c083f0ef8eb2325ee
