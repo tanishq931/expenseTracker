@@ -28,6 +28,7 @@
     "react": "19.0.0",
     "react-native": "0.78.0",
     "react-native-animatable": "^1.4.0",
+    "react-native-bootsplash": "^6.3.11",
     "react-native-config": "^1.5.5",
     "react-native-element-dropdown": "^2.12.4",
     "react-native-gesture-handler": "^2.25.0",
