@@ -63,7 +63,6 @@ yarn-error.log
 ios/Pods/
 ios/Podfile.lock
 package-lock.json
-.env
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
@@ -83,3 +82,5 @@ package-lock.json
 google-services.json
 GoogleService-Info.plist
 package-lock.json
+Podfile.lock
+config.bat
