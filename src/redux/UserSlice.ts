@@ -6,7 +6,12 @@ import {
 } from '../constants/types/UserDetails';
 import {fetchCustomAccounts, fetchCustomCategories} from './UserActions';
 import {REDUX_SLICES_NAME} from './sliceNames';
-import {DEFAULT_ACCOUNTS, DEFAULT_CATEGORIES} from '../constants/constants';
+import {
+  DEFAULT_ACCOUNTS,
+  DEFAULT_CATEGORIES,
+  STORAGE_KEYS,
+} from '../constants/constants';
+import {LocalStorage} from '../services/StorageService';
 
 const initialState: {
   userDetails: USER_DETAILS | null;
@@ -43,16 +48,12 @@ const userSlice = createSlice({
       state.userAccounts.push(action?.payload);
     },
     removeAccount: (state, action) => {
-      let removedAccount: USER_ACCOUNT | undefined;
-      state.userAccounts.filter(val => {
-        if (val.id === action.payload) {
-          removedAccount = val;
-        }
+      let trimmedArray = state.userAccounts.filter(val => {
         return val.id != action.payload;
       });
-      if (!!removedAccount) {
-        //Logic for removing the account from the user's account list
-      }
+      state.userAccounts = trimmedArray;
+      LocalStorage.setItem(STORAGE_KEYS.CUSTOM_ACCOUNTS, trimmedArray);
+      //Logic for removing the account from the user's account list
     },
     addCategory: (state, action) => {
       state.categories.push(action.payload);

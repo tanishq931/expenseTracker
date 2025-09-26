@@ -75,6 +75,15 @@ const transactionSlice = createSlice({
       state.userTransactions = data;
       LocalStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(data));
     },
+    removeAccountTransactions: (state, action) => {
+      let remainingTransactions = state.userTransactions.filter(transaction => {
+        return (
+          transaction.transactionType === TRANSACTION_TYPE.TRANSFER ||
+          transaction.accountDebitedFrom !== action.payload
+        );
+      });
+      state.userTransactions = remainingTransactions;
+    },
     setNewTransactionCategory: (state, action) => {
       state.newTransactionCategory = action?.payload;
     },

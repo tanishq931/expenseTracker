@@ -4,7 +4,6 @@ import styles from './HomeScreen.styles';
 import AppBar from '../../components/AppBar/AppBar';
 import BaseLayout from '../../layouts/BaseLayout';
 import TabBar from '../../components/TabBar/TabBar';
-import AddIcon from '../../../assets/icons/AddIcon';
 import {useNavigation} from '@react-navigation/native';
 import {SCREENS} from '../../constants/screenNames';
 import TransactionRow from '../../components/TransactionRow/TransactionRow';
@@ -18,6 +17,7 @@ import UserProfileIcon from '../../../assets/icons/UserProfileIcon';
 import {Colors} from '../../theme/color';
 import {formatTransactions} from '../../utils/Formatter/FormatTransactions';
 import UpArrowIcon from '../../../assets/icons/UpArrowIcon';
+import FloatingButton from '../../components/FloatingButton/FloatingButton';
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -64,8 +64,6 @@ function HomeScreen() {
       />
     );
   };
-
-  console.log('formattedTransactions', formattedTransactions.length);
 
   handleExit();
 
@@ -128,11 +126,9 @@ function HomeScreen() {
             </View>
           }
         />
-        <TouchableOpacity
-          style={styles.floatingBtn}
-          onPress={() => navigation.navigate(SCREENS.NEW_TRANSACTION)}>
-          <AddIcon />
-        </TouchableOpacity>
+        <FloatingButton
+          onPress={() => navigation.navigate(SCREENS.NEW_TRANSACTION)}
+        />
       </View>
     </BaseLayout>
   );

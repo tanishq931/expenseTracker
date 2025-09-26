@@ -12,4 +12,5 @@ export const Colors = {
   TRANSPARENT: 'transparent',
   WHITE: '#ffffff',
   ORANGE: '#ff8500',
+  ORANGE_1: '#faa307',
 };

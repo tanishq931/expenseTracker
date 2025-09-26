@@ -11,6 +11,7 @@ import {KeyboardProvider} from 'react-native-keyboard-controller';
 import CustomBottomSheet from './components/BottomSheet/BottomSheet';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import {getTransactions} from './redux/TransactionSlice';
+import CustomModal from './components/CustomModal/CustomModal';
 
 function App(): React.JSX.Element {
   const dispatch: AppDispatch = useDispatch();
@@ -39,6 +40,7 @@ function App(): React.JSX.Element {
           type={bottomSheetType}
         />
       </View>
+      <CustomModal />
     </>
   );
 }
